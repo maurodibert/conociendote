@@ -82,26 +82,6 @@ export default function CategoryReveal() {
               onMouseEnter={() => choosingMode && !isSelected && setHoveredId(cat.id)}
               onMouseLeave={() => setHoveredId(null)}
             >
-              {/* Glow behind tile — single layer, opacity/scale animate between hover/selected/off */}
-              <motion.div
-                className="absolute rounded-full pointer-events-none"
-                style={{
-                  top: "50%",
-                  left: "50%",
-                  transform: "translate(-50%, -50%)",
-                  width: 130,
-                  height: 130,
-                  background: `radial-gradient(circle, ${cat.color} 0%, transparent 70%)`,
-                  filter: "blur(14px)",
-                  zIndex: 0,
-                }}
-                animate={{
-                  opacity: isSelected ? 0.55 : isHovered ? 0.22 : 0,
-                  scale: isSelected ? 1.5 : isHovered ? 1.05 : 0.5,
-                }}
-                transition={{ duration: isSelected ? 0.5 : 0.2, ease: "easeOut" }}
-              />
-
               {/* Floating tile */}
               <motion.div
                 animate={{ y: [0, -7, 0] }}
@@ -111,19 +91,26 @@ export default function CategoryReveal() {
                   repeat: Infinity,
                   ease: "easeInOut",
                 }}
-                style={{ position: "relative", zIndex: 1 }}
               >
                 <div className="relative flex flex-col items-center gap-1.5 p-2">
-                  <div
-                    className="rounded-xl p-2.5 border relative overflow-hidden"
-                    style={{
-                      backgroundColor: `${cat.color}18`,
-                      borderColor: isSelected ? `${cat.color}70` : `${cat.color}45`,
-                      transition: "border-color 0.3s ease",
+                  <motion.div
+                    className="rounded-xl p-2.5 relative overflow-hidden"
+                    animate={{
+                      boxShadow: isSelected
+                        ? [`0 0 0 2.5px ${cat.color}, 0 0 0 4.5px ${cat.color}40`, `0 0 0 2.5px ${cat.color}CC, 0 0 0 5px ${cat.color}20`, `0 0 0 2.5px ${cat.color}, 0 0 0 4.5px ${cat.color}40`]
+                        : isHovered
+                        ? `0 0 0 2px ${cat.color}90`
+                        : `0 0 0 1px ${cat.color}45`,
                     }}
+                    transition={
+                      isSelected
+                        ? { duration: 1.8, repeat: Infinity, ease: "easeInOut" }
+                        : { duration: 0.2 }
+                    }
+                    style={{ backgroundColor: `${cat.color}18` }}
                   >
                     {Icon && <Icon color={cat.color} shadowColor={cat.shadowColor} size={50} />}
-                  </div>
+                  </motion.div>
                   <span
                     className="text-xs font-medium text-center leading-tight"
                     style={{
