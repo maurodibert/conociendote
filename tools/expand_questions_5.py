@@ -1,0 +1,340 @@
+#!/usr/bin/env python3
+"""Batch 5 - new angles: hypotheticals, creativity, technology, body, culture."""
+import json
+
+ADDITIONS5 = {
+    "infancia": [
+        ("¿Cuál fue la primera vez que mentiste por proteger a alguien que querías?", 1),
+        ("¿Qué era lo más emocionante que podía pasar en una semana escolar?", 1),
+        ("¿Cuántas veces cambiaste tu respuesta de 'qué querés ser de grande'?", 1),
+        ("¿Cuál fue la primera película que te hizo llorar?", 1),
+        ("¿Tenías alguna fobia particular que ya no tenés?", 1),
+        ("¿Cuál era el olor de tu escuela primaria?", 1),
+        ("¿Cuántos años tenías cuando empezaste a leer solo?", 1),
+        ("¿Cuál fue la primera vez que te sentiste parte de algo más grande que tu familia?", 1),
+        ("¿Cuántas veces te escapaste de la siesta de chico?", 1),
+        ("¿Cuál fue el regalo de cumpleaños más decepcionante que recibiste?", 1),
+        ("¿Hacías trampas cuando jugabas con tus hermanos o amigos?", 1),
+        ("¿Cuál fue el primer momento que recordás de haber admirado a alguien?", 1),
+        ("¿Qué palabra o expresión de tus padres repetís sin darte cuenta?", 1),
+        ("¿Cuál fue la primera vez que dijiste una mala palabra?", 1),
+        ("¿Tenías algún juego imaginario que duró años?", 1),
+        ("¿Cómo era la dinámica en la mesa de tu casa cuando comían juntos?", 1),
+        ("¿Cuándo fue la primera vez que te diste cuenta de que eras diferente a como te veían?", 2),
+        ("¿Hay alguna amistad de infancia que terminó mal y que todavía recordás?", 2),
+        ("¿Cuál fue la primera vez que sentiste que querías ser de otro lugar?", 2),
+        ("¿Cómo fue la primera vez que alguien mayor te trató como a un adulto?", 2),
+        ("¿Cuándo empezaste a cuestionar las creencias con las que te criaron?", 2),
+        ("¿Cuál fue la cosa más valiente que hiciste solo en tu infancia?", 2),
+        ("¿Cuándo fue la primera vez que decepcionaste a alguien que amabas?", 2),
+        ("¿Hay algún momento de tu infancia que ahora ves completamente diferente?", 3),
+        ("¿Cuándo fue la primera vez que sentiste culpa real por algo que hiciste?", 3),
+        ("¿Qué momento de tu infancia explica mejor quién sos hoy?", 3),
+    ],
+
+    "futuro": [
+        ("¿Cuántos años más querés vivir donde vivís actualmente?", 1),
+        ("¿Cuál es la tecnología que más te emociona del futuro?", 1),
+        ("¿Qué cambiaría en tu vida si no necesitaras dinero?", 1),
+        ("¿Cuánto tiempo libre ideal tendrías en una semana en el futuro?", 1),
+        ("¿Cuál es el primer paso concreto que tomarás esta semana hacia tu meta?", 1),
+        ("¿Cómo querés que sea tu casa en 10 años?", 1),
+        ("¿Cuánto te importa el reconocimiento social en el futuro?", 1),
+        ("¿Qué tipo de música o arte querés crear algún día?", 1),
+        ("¿Cuál es la habilidad que más te gustaría enseñarle a alguien?", 1),
+        ("¿Cuántos años querés vivir?", 1),
+        ("¿Cómo querés que sea tu vida espiritual en el futuro?", 1),
+        ("¿Cuál es la relación que más querés que haya mejorado en 10 años?", 1),
+        ("¿Te gustaría tener más estructura o más libertad en tu futuro laboral?", 1),
+        ("¿Cuánto querés que pese el trabajo en tu identidad futura?", 1),
+        ("¿Cuál es la promesa que te hiciste a vos mismo y que querés cumplir?", 1),
+        ("¿Cuánto querés que cambie el mundo en el que vivís?", 1),
+        ("¿Cuál es la causa medioambiental o social que más querés apoyar?", 2),
+        ("¿Cómo querés manejar el envejecimiento cuando llegue?", 2),
+        ("¿Cuándo fue la última vez que renovaste genuinamente tus metas?", 2),
+        ("¿Cuánto de tu futuro dependes de que alguien cambie en vez de vos?", 2),
+        ("¿Cuál es la persona que más querés que esté en tu futuro y por qué?", 2),
+        ("¿Cuánto peso le das a la libertad vs. la seguridad en tu futuro?", 2),
+        ("¿Cuánto de tu futuro está guiado por miedos y cuánto por deseos?", 3),
+        ("¿Cuál sería tu vida si pudieras diseñarla desde cero hoy?", 3),
+        ("¿Hay algo en el futuro que te da miedo que te resulta difícil admitir incluso a vos mismo?", 3),
+        ("¿Cuándo fue la última vez que soñaste algo en grande y te creíste que era posible?", 3),
+    ],
+
+    "amor": [
+        ("¿Cuánto tarda alguien en ganarse tu confianza completa en una relación?", 1),
+        ("¿Cuál es el gesto que más te derrite en una persona?", 1),
+        ("¿Cuánto de vos mismo cambiás para encajar en una relación?", 1),
+        ("¿Cuál fue la primera vez que alguien te dijo que eras difícil de amar?", 1),
+        ("¿Cuál es la cosa que más te hace sentir amado sin palabras?", 1),
+        ("¿Cuántas veces al día pensás en alguien cuando estás enamorado?", 1),
+        ("¿Cuál fue el primer cumpleaños especial que le organizaste a una pareja?", 1),
+        ("¿Prefieres mostrar el amor con actos o con palabras?", 1),
+        ("¿Cuándo fue la última vez que alguien te sorprendió románticamente?", 1),
+        ("¿Cuál es la frase de amor más ridícula que te dijeron o dijiste?", 1),
+        ("¿Qué tipo de pareja hacés cuando alguien que querés está triste?", 1),
+        ("¿Cuánto importa la atracción física en una relación para vos?", 1),
+        ("¿Cuándo fue la primera vez que sentiste que alguien te amaba de verdad?", 1),
+        ("¿Cuál es el libro, película o canción que más refleja tu visión del amor?", 1),
+        ("¿Cuánto importa la compatibilidad espiritual o de valores en una pareja?", 1),
+        ("¿Cuándo fue la última vez que actuaste desde el amor puro sin expectativas?", 2),
+        ("¿Cuánto miedo te da dejar entrar a alguien completamente?", 2),
+        ("¿Qué cosa te hace retirar el amor rápidamente?", 2),
+        ("¿Cuándo fue la última vez que perdonaste algo difícil en una relación?", 2),
+        ("¿Cuánto de lo que buscás en el amor es lo que no tuviste de chico?", 2),
+        ("¿Cuándo fue la última vez que dijiste 'te quiero' y lo sentiste con toda certeza?", 2),
+        ("¿Cuál fue la vez que el amor te cambió de manera que nunca esperabas?", 2),
+        ("¿Cuánto miedo te da amar y perder?", 3),
+        ("¿Hay alguien a quien amás profundamente y al que nunca se lo dijiste del todo?", 3),
+        ("¿Cuál es la cosa de amor más valiente que podrías hacer ahora mismo?", 3),
+        ("¿Cuándo fue la última vez que te abandonaste completamente al amor sin protegerte?", 3),
+    ],
+
+    "familia": [
+        ("¿Cuál fue la primera vez que le pediste perdón a un familiar?", 1),
+        ("¿Hay algún familiar que siempre supo más de vos de lo que parecía?", 1),
+        ("¿Cuál fue la última vez que toda tu familia estuvo junta?", 1),
+        ("¿Cuánto tiempo pasan en contacto tu familia y vos en una semana típica?", 1),
+        ("¿Cuál es el plato favorito que solo un familiar hace exactamente bien?", 1),
+        ("¿Hay algún viaje familiar que se convirtió en leyenda?", 1),
+        ("¿Cuánto te pareces a tu madre o padre cuando te enojás?", 1),
+        ("¿Qué tradición creaste vos en tu familia actual?", 1),
+        ("¿Cuál fue el consejo familiar que más pusiste en práctica?", 1),
+        ("¿Cuándo fue la última vez que tu familia te sorprendió?", 1),
+        ("¿Cuál es el valor familiar que más te importa transmitir?", 1),
+        ("¿Cómo describe tu familia el carácter que tenés?", 1),
+        ("¿Cuál es la historia familiar que todos conocen pero que cada uno cuenta diferente?", 1),
+        ("¿Hay algún familiar que haya cambiado dramáticamente con los años?", 1),
+        ("¿Cuánto de la música de tu infancia viene de tu familia?", 1),
+        ("¿Cuándo fue la última vez que le pediste consejo a un familiar mayor?", 2),
+        ("¿Cuánto de la manera en que manejás el dinero viene de tu familia?", 2),
+        ("¿Hay algo de tu familia que nunca contás fuera del círculo íntimo?", 2),
+        ("¿Cuándo fue la última vez que tuviste que ser el sostén emocional de un familiar?", 2),
+        ("¿Hay algo de tu familia que te costó más aceptar cuando creciste?", 2),
+        ("¿Cuánto influyó tu familia en la manera en que mantenés amistades?", 2),
+        ("¿Cuándo fue la última vez que tu familia te decepcionó profundamente?", 2),
+        ("¿Cuál es el momento de tu historia familiar que más te marca emocionalmente?", 3),
+        ("¿Hay algo de tu crianza que recién entendiste hace poco?", 3),
+        ("¿Cuánto amor sentís que te debieron y que nunca recibiste de tu familia?", 3),
+        ("¿Si pudieras elegir tu familia, cambiarías algo? ¿Qué?", 3),
+    ],
+
+    "amistades": [
+        ("¿Cuál es el plan de amigos que siempre termina igual sin importar cómo empieza?", 1),
+        ("¿Cómo sería tu grupo de amigos ideal?", 1),
+        ("¿Cuándo fue la última vez que un amigo te escuchó de verdad?", 1),
+        ("¿Hay algún amigo que te inspire a ser mejor persona?", 1),
+        ("¿Cuándo fue la última vez que fuiste vos quien necesitó ayuda?", 1),
+        ("¿Cuál es la cosa que más valorás de tu mejor amigo actualmente?", 1),
+        ("¿Cuánto tiempo antes de ver a tus amigos empezás a tener ganas?", 1),
+        ("¿Cuál fue la primera vez que un amigo te pidió algo que cambió la relación?", 1),
+        ("¿Cuándo fue la última vez que hiciste algo nuevo con tus amigos?", 1),
+        ("¿Hay algún amigo que siempre sepa qué decirte cuando todo está mal?", 1),
+        ("¿Cuándo fue la última vez que un amigo te hizo reír hasta que te dolió la panza?", 1),
+        ("¿Cuál fue el momento más tierno que tuviste con un amigo?", 1),
+        ("¿Cuántas veces por año te ves con tu amigo más cercano?", 1),
+        ("¿Hay algún amigo que siempre llega tarde y que igual te alegra ver?", 1),
+        ("¿Cuál fue la conversación más profunda que tuviste con un amigo?", 1),
+        ("¿Cuándo fue la última vez que tuviste miedo de perder una amistad?", 2),
+        ("¿Hay alguna amistad que sientas que no está dando lo mismo de los dos lados?", 2),
+        ("¿Cuándo fue la última vez que cambió un amigo de una manera que te afectó?", 2),
+        ("¿Hay algo que le perdonaste a un amigo que con nadie más lo harías?", 2),
+        ("¿Cuándo fue la última vez que preferiste estar solo en lugar de estar con amigos?", 2),
+        ("¿Hay algo que ocultás de tus amigos más cercanos porque cambia cómo te ven?", 2),
+        ("¿Cuándo fue la última vez que un amigo te conoció mejor que vos mismo?", 2),
+        ("¿Cuál es la amistad que más te costaría perder y por qué?", 3),
+        ("¿Hay alguna amistad que sacrificaste por algo que hoy no vale la pena?", 3),
+        ("¿Cuándo fue la última vez que mostraste tu versión más vulnerable con un amigo?", 3),
+        ("¿Cuál es el límite que jamás cruzarías en una amistad aunque te costara la relación?", 3),
+    ],
+
+    "exs": [
+        ("¿Cuándo fue la última vez que hablaste con un ex?", 1),
+        ("¿Cuál fue la relación que duró menos de lo que esperabas?", 1),
+        ("¿Alguna vez te enamoraste de alguien en un viaje?", 1),
+        ("¿Cuándo fue la primera vez que saliste con alguien mucho mayor o menor?", 1),
+        ("¿Cuál fue el primer viaje que hiciste con una pareja?", 1),
+        ("¿Cuándo fue la última vez que te encontraste con un ex de casualidad?", 1),
+        ("¿Cuál fue la relación que más influyó en tu estilo de vida?", 1),
+        ("¿Hay alguna ex pareja que se convirtió en un buen amigo después?", 1),
+        ("¿Cuánto duró tu soltería más larga entre relaciones?", 1),
+        ("¿Cuándo fue la primera vez que te presentaron a los padres de alguien?", 1),
+        ("¿Cuál fue el momento más gracioso de una ruptura que tuviste?", 1),
+        ("¿Cómo fue la primera vez que te dijeron 'ya no te quiero'?", 1),
+        ("¿Cuándo fue la primera vez que dijiste 'ya no te quiero'?", 1),
+        ("¿Cuál fue la relación que más cambió tus gustos y preferencias?", 1),
+        ("¿Cuánto aprendiste sobre vos mismo en la relación más difícil?", 1),
+        ("¿Cuándo fue la última vez que comparaste a alguien actual con un ex?", 2),
+        ("¿Hay algo que aprendiste de una ruptura que desearías haber sabido antes?", 2),
+        ("¿Cuánto de cómo amás hoy está condicionado por las heridas pasadas?", 2),
+        ("¿Cuándo fue la última vez que te perdonaste por cómo actuaste en una relación?", 2),
+        ("¿Hay algo de una ex relación que te falta y que no encontraste en otra?", 2),
+        ("¿Cuándo fue la última vez que deseaste que algo diferente hubiera pasado en una relación?", 2),
+        ("¿Cuándo fue la última vez que sentiste que liberaste completamente a alguien del pasado?", 2),
+        ("¿Cuál fue la relación que más te enseñó sobre tus propias necesidades emocionales?", 3),
+        ("¿Hay algo de vos mismo que solo se reveló en el peor momento de una ruptura?", 3),
+        ("¿Cuánto de tu historia amorosa querías que fuera diferente?", 3),
+        ("¿Qué patrón en el amor necesitás romper definitivamente?", 3),
+    ],
+
+    "personalidad": [
+        ("¿Cuánto de lo que pensás realmente decís en voz alta?", 1),
+        ("¿Cuál es la cosa que hacés de manera diferente a como todos esperan?", 1),
+        ("¿Cuándo fue la última vez que actuaste por intuición pura y salió bien?", 1),
+        ("¿Cuál es el hábito que te define más que cualquier otra cosa?", 1),
+        ("¿Qué tipo de persona te saca lo mejor de vos?", 1),
+        ("¿Cuánto tiempo tardás en recuperarte después de una semana muy intensa?", 1),
+        ("¿Cuándo fue la última vez que reíste de vos mismo?", 1),
+        ("¿Cuál es la cosa que te resulta más fácil que a la mayoría?", 1),
+        ("¿Cuándo fue la última vez que le pediste consejo a alguien?", 1),
+        ("¿Cuál es la cosa que más te energiza sin importar lo cansado que estés?", 1),
+        ("¿Qué tipo de reto preferís: intelectual, físico o emocional?", 1),
+        ("¿Cuándo fue la última vez que hiciste algo completamente fuera de tu zona de confort?", 1),
+        ("¿Cuánto de tu tiempo cuidás a otros vs. cuánto te cuidás a vos mismo?", 1),
+        ("¿Cuál es la forma en que procesas mejor las emociones difíciles?", 1),
+        ("¿Cuándo fue la última vez que alguien te describió de una manera que te sorprendió?", 1),
+        ("¿Cuándo fue la última vez que tuviste una creencia fuerte y cambiaste de opinión?", 2),
+        ("¿Cuánto de lo que hacés todos los días refleja quién querés ser?", 2),
+        ("¿Cuándo fue la última vez que hiciste algo por obligación que en el fondo no querías?", 2),
+        ("¿Cuánto peso tiene el qué dirán en tus decisiones cotidianas?", 2),
+        ("¿Hay algún aspecto de tu carácter que admirás en otros pero te cuesta desarrollar?", 2),
+        ("¿Cuánto de tu personalidad actual cambió en los últimos 3 años?", 2),
+        ("¿Cuándo fue la última vez que elegiste tu bienestar sobre la comodidad de otros?", 2),
+        ("¿Cuál es la parte de tu identidad que más tardaste en aceptar?", 3),
+        ("¿Cuándo fue la última vez que sentiste que nadie te conoce del todo?", 3),
+        ("¿Cuál es la cosa que más te cuesta mostrar aunque confíes mucho en alguien?", 3),
+        ("¿Cuánto de quién sos es una construcción y cuánto es esencial?", 3),
+    ],
+
+    "miedos": [
+        ("¿Cuál es la situación que más te genera vergüenza ajena?", 1),
+        ("¿Cuándo fue la última vez que evitaste una situación social por ansiedad?", 1),
+        ("¿Hay algún miedo que tenés ahora que no tenías hace 5 años?", 1),
+        ("¿Le tenés miedo a quedarte sin trabajo?", 1),
+        ("¿Cuál es el tipo de decisión que más te genera incertidumbre?", 1),
+        ("¿Le tenés miedo a volar por turbulencia o por perder el control?", 1),
+        ("¿Cuándo fue la última vez que tuviste que hacer algo a pesar del miedo y lo lograste?", 1),
+        ("¿Cuál es la cosa más inocua que te genera una ansiedad desproporcionada?", 1),
+        ("¿Cuándo fue la última vez que un miedo te hizo evitar una conversación?", 1),
+        ("¿Cuál es el miedo que más te resulta absurdo pero que sentís igual?", 1),
+        ("¿Le tenés miedo a ser olvidado?", 1),
+        ("¿Cuándo fue la última vez que el miedo te hizo actuar de manera que no reconociste después?", 1),
+        ("¿Cuánto miedo te genera la posibilidad de perder lo que más amás?", 1),
+        ("¿Hay algún miedo que empezó de chico y que todavía arrastrás?", 1),
+        ("¿Cuál es el miedo que más te cuesta admitir frente a alguien que querés impresionar?", 1),
+        ("¿Cuándo fue la última vez que te preguntaste si tu miedo tenía base real?", 2),
+        ("¿Cuánto del miedo al fracaso es tuyo y cuánto lo heredaste?", 2),
+        ("¿Hay algo que evitás constantemente sin darte cuenta de que es por miedo?", 2),
+        ("¿Cuándo fue la última vez que el miedo te hizo decir no a algo que querías?", 2),
+        ("¿Cuánto miedo te genera la idea de tener que empezar de cero?", 2),
+        ("¿Cuándo fue la última vez que hablaste honestamente sobre un miedo tuyo?", 2),
+        ("¿Cuánto del miedo que tenés hoy vino de algo que viviste?", 2),
+        ("¿Cuál es el miedo que más afecta quién podés llegar a ser?", 3),
+        ("¿Cuándo fue la última vez que sentiste miedo de vos mismo?", 3),
+        ("¿Cuál es el miedo que, si lo soltaras, cambiaría todo lo demás?", 3),
+        ("¿Cuánto de tu identidad está construida alrededor de lo que evitás?", 3),
+    ],
+
+    "logros": [
+        ("¿Cuándo fue la última vez que te sorprendiste a vos mismo positivamente?", 1),
+        ("¿Cuál fue el trabajo más duro que hiciste y por qué valió la pena?", 1),
+        ("¿Cuándo fue la primera vez que alguien confió en vos para liderar algo?", 1),
+        ("¿Cuál es el aprendizaje no académico del que más orgulloso estás?", 1),
+        ("¿Hay algo que lograste que sabías iba a tardar mucho y que lo sostuviste igual?", 1),
+        ("¿Cuándo fue la última vez que tu trabajo o esfuerzo inspiró a alguien?", 1),
+        ("¿Cuál fue la primera vez que te sentiste responsable de algo importante?", 1),
+        ("¿Hay algún logro que no publicaste en redes y que igual te llena?", 1),
+        ("¿Cuándo fue la última vez que fallaste y aprendiste más de lo que esperabas?", 1),
+        ("¿Cuál fue el momento de más claridad que tuviste sobre tu propósito?", 1),
+        ("¿Cuándo fue la última vez que alguien usó algo que vos creaste o hiciste?", 1),
+        ("¿Cuál es el logro que podría parecer pequeño pero que para vos fue enorme?", 1),
+        ("¿Cuándo fue la última vez que te diste el crédito que merecías sin minimizarlo?", 1),
+        ("¿Cuántas veces reinventaste tu camino para llegar a donde estás?", 1),
+        ("¿Cuándo fue la última vez que alguien te pidió ayuda específicamente por lo que sabés?", 1),
+        ("¿Cuándo fue la última vez que lograste algo sin esperar reconocimiento?", 2),
+        ("¿Cuánto de lo que lograste fue a pesar de alguien que no te apoyó?", 2),
+        ("¿Hay algún logro que conseguiste que en retrospectiva no querías tanto?", 2),
+        ("¿Cuándo fue la última vez que apostaste por vos mismo sin garantías?", 2),
+        ("¿Cuánto de lo que lograste vino de disciplina vs. de pasión?", 2),
+        ("¿Cuándo fue la última vez que sentiste que tu esfuerzo era irrelevante para los demás?", 2),
+        ("¿Cuánto de tus metas actuales están alineadas con quien querés ser?", 2),
+        ("¿Cuál es el logro que más define quién sos aunque nunca lo hables?", 3),
+        ("¿Cuándo fue la última vez que te preguntaste si tus logros eran suficientes?", 3),
+        ("¿Cuánto de lo que lograste fue para llenar algo que te faltaba?", 3),
+        ("¿Cuál sería el mayor fracaso que podrías tener y cómo lo enfrentarías?", 3),
+    ],
+
+    "sinFiltro": [
+        ("¿Cuántas conversaciones de WhatsApp tenés abiertas sin responder?", 1),
+        ("¿Cuántas veces al mes dormís más de lo que debería?", 1),
+        ("¿Cuál fue la situación más incómoda que viviste en una cena familiar?", 1),
+        ("¿Cuánto gastaste en la última semana en cosas que no necesitabas?", 1),
+        ("¿Cuántas veces viste una serie completa que no le recomendarías a nadie?", 1),
+        ("¿Cuánto tiempo pasás haciendo scroll sin recordar qué viste después?", 1),
+        ("¿Cuántas veces al mes reís solo con algo que viste en el celular?", 1),
+        ("¿Cuántas apps de citas tenés o tuviste instaladas al mismo tiempo?", 1),
+        ("¿Cuál es el peor chiste que te reíste cuando no deberías?", 1),
+        ("¿Cuántas veces te prometiste levantarte temprano y no lo hiciste?", 1),
+        ("¿Cuántas veces usaste la excusa del trabajo para no hacer algo que no querías?", 1),
+        ("¿Cuántas veces comiste algo que sabías que era malo para vos y no te importó?", 1),
+        ("¿Cuántas series empezaste y abandonaste en el primer episodio?", 1),
+        ("¿Cuántas veces borraste el historial del navegador por algo específico?", 1),
+        ("¿Cuántas veces fingiste que no viste el mensaje cuando sí lo viste?", 1),
+        ("¿Cuándo fue la última vez que actuaste desde el rencor y lo disfrutaste?", 2),
+        ("¿Alguna vez usaste información sobre alguien para salir favorecido?", 2),
+        ("¿Cuántas veces dijiste que alguien te caía bien cuando en realidad no?", 2),
+        ("¿Alguna vez te alegraste de algo malo que le pasó a alguien que no te cae bien?", 2),
+        ("¿Cuándo fue la última vez que mentiste descaradamente sin remordimiento?", 2),
+        ("¿Hay algo que hayas hecho cuando no te veían que nadie sospecharía de vos?", 2),
+        ("¿Cuándo fue la última vez que actuaste de mala fe y lo reconociste?", 2),
+        ("¿Cuándo fue la última vez que hiciste algo que te avergonzaría si lo supiera tu familia?", 3),
+        ("¿Cuál es la fantasía más prohibida o socialmente inaceptable que tenés?", 3),
+        ("¿Hay algo que te gustó hacer que sería imposible explicarle a alguien sin contexto?", 3),
+        ("¿Cuál es el límite moral que cruzaste alguna vez y con el que todavía convivís?", 3),
+    ],
+}
+
+def get_prefix(cat_id):
+    return {
+        "infancia": "inf", "futuro": "fut", "amor": "am", "familia": "fam",
+        "amistades": "ami", "exs": "ex", "personalidad": "per",
+        "miedos": "mie", "logros": "log", "sinFiltro": "sf",
+    }[cat_id]
+
+def main():
+    with open("data/questions.json", "r", encoding="utf-8") as f:
+        data = json.load(f)
+
+    for cat in data["categories"]:
+        cat_id = cat["id"]
+        if cat_id not in ADDITIONS5:
+            continue
+
+        prefix = get_prefix(cat_id)
+        max_idx = {1: 0, 2: 0, 3: 0}
+        for q in cat["questions"]:
+            parts = q["id"].split("_")
+            level = int(parts[1])
+            idx = int(parts[2])
+            if idx > max_idx[level]:
+                max_idx[level] = idx
+
+        level_counters = dict(max_idx)
+        new_qs = []
+
+        for (text, level) in ADDITIONS5[cat_id]:
+            level_counters[level] += 1
+            q_id = f"{prefix}_{level}_{level_counters[level]:03d}"
+            new_qs.append({"id": q_id, "text": text, "level": level})
+
+        cat["questions"].extend(new_qs)
+        print(f"{cat_id}: {len(cat['questions']) - len(new_qs)} → {len(cat['questions'])} (+{len(new_qs)})")
+
+    with open("data/questions.json", "w", encoding="utf-8") as f:
+        json.dump(data, f, ensure_ascii=False, indent=2)
+
+    total = sum(len(c["questions"]) for c in data["categories"])
+    print(f"\nTotal questions: {total}")
+
+if __name__ == "__main__":
+    main()
