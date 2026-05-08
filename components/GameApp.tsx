@@ -6,6 +6,7 @@ import WelcomeScreen from "./screens/WelcomeScreen";
 import CategoryReveal from "./screens/CategoryReveal";
 import LevelSelect from "./screens/LevelSelect";
 import QuestionScreen from "./screens/QuestionScreen";
+import PeerRatingScreen from "./screens/PeerRatingScreen";
 import ResultScreen from "./screens/ResultScreen";
 import ScoreboardScreen from "./screens/ScoreboardScreen";
 
@@ -27,6 +28,7 @@ export default function GameApp() {
           {state.screen === "reveal" && <CategoryReveal key="reveal" />}
           {state.screen === "level-select" && <LevelSelect key="level-select" />}
           {state.screen === "question" && <QuestionScreen key="question" />}
+          {state.screen === "peer-rating" && <PeerRatingScreen key="peer-rating" />}
           {state.screen === "result" && <ResultScreen key="result" />}
           {state.screen === "scoreboard" && <ScoreboardScreen key="scoreboard" />}
         </AnimatePresence>

@@ -1,6 +1,24 @@
 import { Category, GameState, Level, Player, Question } from "./types";
 
-export const POINTS_BY_LEVEL: Record<Level, number> = { 1: 10, 2: 20, 3: 40 };
+export const CATEGORY_UNLOCK_POINTS: Record<string, number> = {
+  sinFiltro: 15,
+  confesiones: 35,
+  fantasias: 60,
+};
+
+// Base categories always available
+const BASE_CATEGORY_IDS = new Set([
+  "infancia", "futuro", "amor", "familia", "amistades",
+  "exs", "personalidad", "miedos", "logros",
+]);
+
+export function getAvailableCategoryIds(playerPoints: number): Set<string> {
+  const ids = new Set(BASE_CATEGORY_IDS);
+  for (const [catId, threshold] of Object.entries(CATEGORY_UNLOCK_POINTS)) {
+    if (playerPoints >= threshold) ids.add(catId);
+  }
+  return ids;
+}
 
 export function createPlayer(name: string, index: number): Player {
   return { id: `p${index}`, name, points: 0, streak: 0, passes: 0, answers: 0 };
@@ -20,7 +38,6 @@ export function pickRandomCategory(categories: Category[], excludeId?: string): 
 export function pickQuestion(category: Category, level: Level, usedIds: Set<string>): Question | null {
   const pool = category.questions.filter((q) => q.level === level && !usedIds.has(q.id));
   if (!pool.length) {
-    // fallback: ignore used
     const fallback = category.questions.filter((q) => q.level === level);
     return fallback[Math.floor(Math.random() * fallback.length)] ?? null;
   }
@@ -28,15 +45,50 @@ export function pickQuestion(category: Category, level: Level, usedIds: Set<stri
 }
 
 export function applyApproved(state: GameState): GameState {
-  const players = [...state.players];
-  const player = { ...players[state.currentPlayerIndex] };
-  const pts = POINTS_BY_LEVEL[state.selectedLevel!];
-  player.points += pts;
-  player.streak += 1;
-  player.answers += 1;
-  players[state.currentPlayerIndex] = player;
-  const { canChooseCategory, maxLevel } = getStreakPrivileges(player.streak);
-  return { ...state, players, screen: "result", lastOutcome: "approved", canChooseCategory, maxLevel };
+  return {
+    ...state,
+    screen: "peer-rating",
+    lastOutcome: "approved",
+    pendingRatings: [],
+    ratingVoterIndex: 0,
+    ratingPointsEarned: 0,
+  };
+}
+
+export function submitRating(state: GameState, rating: number): GameState {
+  const otherPlayers = state.players
+    .map((p, i) => ({ p, i }))
+    .filter(({ i }) => i !== state.currentPlayerIndex);
+
+  const newRatings = [...state.pendingRatings, rating];
+  const nextVoterIndex = state.ratingVoterIndex + 1;
+
+  if (nextVoterIndex >= otherPlayers.length) {
+    // All voted — finalize
+    const avg = Math.round(newRatings.reduce((a, b) => a + b, 0) / newRatings.length);
+    const players = [...state.players];
+    const player = { ...players[state.currentPlayerIndex] };
+    player.points += avg;
+    player.streak += 1;
+    player.answers += 1;
+    players[state.currentPlayerIndex] = player;
+    const { canChooseCategory, maxLevel } = getStreakPrivileges(player.streak);
+    return {
+      ...state,
+      players,
+      screen: "result",
+      pendingRatings: newRatings,
+      ratingPointsEarned: avg,
+      canChooseCategory,
+      maxLevel,
+    };
+  }
+
+  return {
+    ...state,
+    pendingRatings: newRatings,
+    ratingVoterIndex: nextVoterIndex,
+  };
 }
 
 export function applyPassed(state: GameState): GameState {
@@ -45,7 +97,7 @@ export function applyPassed(state: GameState): GameState {
   player.streak = 0;
   player.passes += 1;
   players[state.currentPlayerIndex] = player;
-  return { ...state, players, screen: "result", lastOutcome: "passed", canChooseCategory: false, maxLevel: 1 };
+  return { ...state, players, screen: "result", lastOutcome: "passed", ratingPointsEarned: 0, canChooseCategory: false, maxLevel: 1 };
 }
 
 export function nextTurn(state: GameState, playersCount: number): GameState {
@@ -62,5 +114,8 @@ export function nextTurn(state: GameState, playersCount: number): GameState {
     lastOutcome: null,
     canChooseCategory,
     maxLevel,
+    pendingRatings: [],
+    ratingVoterIndex: 0,
+    ratingPointsEarned: 0,
   };
 }

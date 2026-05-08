@@ -4,22 +4,26 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 import { useGame } from "@/lib/GameContext";
 import { CATEGORY_ICONS } from "@/components/icons/IsometricIcons";
+import { CATEGORY_UNLOCK_POINTS } from "@/lib/gameLogic";
 import { Category } from "@/lib/types";
 
 export default function CategoryReveal() {
-  const { state, categories, dispatch, getRandomCategory } = useGame();
+  const { state, categories, allCategories, dispatch, getRandomCategory } = useGame();
   const currentPlayer = state.players[state.currentPlayerIndex];
   const [winner, setWinner] = useState<Category | null>(null);
   const [choosingMode, setChoosingMode] = useState(false);
   const [hoveredId, setHoveredId] = useState<string | null>(null);
 
+  // All categories to show in grid (unlocked + locked lockable ones)
+  const displayCategories = allCategories;
+  const unlockedIds = new Set(categories.map((c) => c.id));
   const cols = 3;
 
   function getGridPos(index: number) {
     const col = index % cols;
     const row = Math.floor(index / cols);
-    const totalRows = Math.ceil(categories.length / cols);
-    const tilesInRow = Math.min(cols, categories.length - row * cols);
+    const totalRows = Math.ceil(displayCategories.length / cols);
+    const tilesInRow = Math.min(cols, displayCategories.length - row * cols);
     const colShift = (cols - tilesInRow) / 2;
     const gridX = (col + colShift - (cols - 1) / 2) * 130;
     const gridY = (row - (totalRows - 1) / 2) * 120;
@@ -34,8 +38,8 @@ export default function CategoryReveal() {
 
   function handleTileTap(cat: Category) {
     if (!choosingMode) return;
+    if (!unlockedIds.has(cat.id)) return;
     setWinner(cat);
-    // stay in choosingMode so user can tap another to change
   }
 
   function confirmCategory() {
@@ -63,28 +67,34 @@ export default function CategoryReveal() {
 
       {/* Tiles */}
       <div className="relative flex items-center justify-center w-full flex-1 pt-14 pb-32">
-        {categories.map((cat, i) => {
+        {displayCategories.map((cat, i) => {
           const Icon = CATEGORY_ICONS[cat.id];
+          const isUnlocked = unlockedIds.has(cat.id);
           const isSelected = winner?.id === cat.id;
-          const isHovered = hoveredId === cat.id && choosingMode && !isSelected;
+          const isHovered = hoveredId === cat.id && choosingMode && isUnlocked && !isSelected;
           const { x, y } = getGridPos(i);
           const floatDelay = (i * 0.37) % 2.5;
           const floatDuration = 2.2 + (i * 0.19) % 1.2;
+          const pointsNeeded = CATEGORY_UNLOCK_POINTS[cat.id];
 
           return (
             <motion.div
               key={cat.id}
               className="absolute"
-              style={{ cursor: choosingMode ? "pointer" : "default", zIndex: isSelected ? 10 : 1 }}
+              style={{
+                cursor: choosingMode && isUnlocked ? "pointer" : "default",
+                zIndex: isSelected ? 10 : 1,
+                opacity: isUnlocked ? 1 : 0.45,
+              }}
               animate={{ x, y }}
               transition={{ type: "spring", stiffness: 180, damping: 22, delay: i * 0.06 }}
               onClick={() => handleTileTap(cat)}
-              onMouseEnter={() => choosingMode && !isSelected && setHoveredId(cat.id)}
+              onMouseEnter={() => choosingMode && isUnlocked && !isSelected && setHoveredId(cat.id)}
               onMouseLeave={() => setHoveredId(null)}
             >
               {/* Floating tile */}
               <motion.div
-                animate={{ y: [0, -7, 0] }}
+                animate={isUnlocked ? { y: [0, -7, 0] } : { y: 0 }}
                 transition={{
                   duration: floatDuration,
                   delay: floatDelay,
@@ -110,17 +120,35 @@ export default function CategoryReveal() {
                     style={{ backgroundColor: `${cat.color}18` }}
                   >
                     {Icon && <Icon color={cat.color} shadowColor={cat.shadowColor} size={50} />}
+
+                    {/* Lock overlay */}
+                    {!isUnlocked && (
+                      <div className="absolute inset-0 flex items-center justify-center rounded-xl bg-[#F2ECE4]/60">
+                        <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                          <rect x="3" y="8" width="12" height="9" rx="2" fill="#1A2535" opacity="0.35" />
+                          <path d="M6 8V5.5a3 3 0 0 1 6 0V8" stroke="#1A2535" strokeWidth="1.5" strokeLinecap="round" opacity="0.35" />
+                        </svg>
+                      </div>
+                    )}
                   </motion.div>
+
                   <span
                     className="text-xs font-medium text-center leading-tight"
                     style={{
                       maxWidth: 70,
-                      color: isSelected ? cat.color : "#1A2535A8",
+                      color: isSelected ? cat.color : isUnlocked ? "#1A2535A8" : "#1A253550",
                       transition: "color 0.3s ease",
                     }}
                   >
                     {cat.shortName}
                   </span>
+
+                  {/* Points needed label */}
+                  {!isUnlocked && pointsNeeded && (
+                    <span className="text-[9px] font-semibold" style={{ color: `${cat.color}80` }}>
+                      {pointsNeeded} pts
+                    </span>
+                  )}
                 </div>
               </motion.div>
             </motion.div>
@@ -132,7 +160,6 @@ export default function CategoryReveal() {
       <div className="absolute bottom-0 left-0 right-0 px-5 pb-8 pt-6 bg-gradient-to-t from-[#F2ECE4] via-[#F2ECE4]/95 to-transparent z-20">
         <AnimatePresence mode="wait">
 
-          {/* No winner, not choosing */}
           {!winner && !choosingMode && (
             <motion.div
               key="idle"
@@ -159,7 +186,6 @@ export default function CategoryReveal() {
             </motion.div>
           )}
 
-          {/* Choosing mode: no selection yet */}
           {choosingMode && !winner && (
             <motion.div
               key="choosing-empty"
@@ -175,7 +201,6 @@ export default function CategoryReveal() {
             </motion.div>
           )}
 
-          {/* Winner selected (random or chosen) */}
           {winner && (
             <motion.div
               key="winner"

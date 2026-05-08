@@ -29,6 +29,7 @@ export type GameScreen =
   | "reveal"
   | "level-select"
   | "question"
+  | "peer-rating"
   | "result"
   | "scoreboard";
 
@@ -44,4 +45,7 @@ export interface GameState {
   lastOutcome: "approved" | "passed" | null;
   canChooseCategory: boolean;
   maxLevel: Level;
+  pendingRatings: number[];
+  ratingVoterIndex: number;
+  ratingPointsEarned: number;
 }

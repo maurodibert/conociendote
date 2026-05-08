@@ -164,6 +164,31 @@ export function SinFiltroIcon({ color, shadowColor, size = 48 }: IconProps) {
   );
 }
 
+export function ConfesionesIcon({ color, shadowColor, size = 48 }: IconProps) {
+  // Sealed envelope / letter
+  return (
+    <IsoCube color={color} shadowColor={shadowColor} size={size} top={
+      <g>
+        <rect x="-9" y="-6" width="18" height="12" rx="2" fill="white" opacity="0.9" />
+        <path d="M-9,-6 L0,2 L9,-6" stroke={color} strokeWidth="1.5" fill="none" opacity="0.7" />
+      </g>
+    } />
+  );
+}
+
+export function FantasiasIcon({ color, shadowColor, size = 48 }: IconProps) {
+  // Crescent moon + star
+  return (
+    <IsoCube color={color} shadowColor={shadowColor} size={size} top={
+      <g>
+        <path d="M2,8 C-6,8 -10,2 -8,-4 C-4,0 2,0 6,-4 C8,4 6,8 2,8Z"
+          fill="white" opacity="0.9" />
+        <circle cx="7" cy="-7" r="2.5" fill="white" opacity="0.9" />
+      </g>
+    } />
+  );
+}
+
 export const CATEGORY_ICONS: Record<string, React.FC<IconProps>> = {
   infancia: InfanciaIcon,
   futuro: FuturoIcon,
@@ -175,4 +200,6 @@ export const CATEGORY_ICONS: Record<string, React.FC<IconProps>> = {
   miedos: MiedosIcon,
   logros: LogrosIcon,
   sinFiltro: SinFiltroIcon,
+  confesiones: ConfesionesIcon,
+  fantasias: FantasiasIcon,
 };

@@ -121,9 +121,9 @@ export default function WelcomeScreen() {
         </div>
         <div>
           <p className={`text-sm font-medium transition-colors ${spice ? "text-[#CC7050]" : "text-[#1A2535]/60"}`}>
-            Incluir categoría Sin Filtro
+            Modo adultos
           </p>
-          <p className="text-xs text-[#1A2535]/35">Solo para mayores de 18 años</p>
+          <p className="text-xs text-[#1A2535]/35">Desbloquea Sin Filtro, Confesiones y Fantasías</p>
         </div>
       </div>
 

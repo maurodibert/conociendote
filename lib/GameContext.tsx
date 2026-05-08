@@ -2,7 +2,10 @@
 
 import React, { createContext, useCallback, useContext, useMemo, useReducer, useRef } from "react";
 import { Category, GameState, Level, Player } from "./types";
-import { applyApproved, applyPassed, createPlayer, getStreakPrivileges, nextTurn, pickQuestion, pickRandomCategory } from "./gameLogic";
+import {
+  applyApproved, applyPassed, createPlayer, getAvailableCategoryIds,
+  getStreakPrivileges, nextTurn, pickQuestion, pickRandomCategory, submitRating,
+} from "./gameLogic";
 
 type Action =
   | { type: "START"; players: string[]; spiceEnabled: boolean }
@@ -11,6 +14,7 @@ type Action =
   | { type: "SHOW_QUESTION" }
   | { type: "APPROVED" }
   | { type: "PASSED" }
+  | { type: "SUBMIT_RATING"; rating: number }
   | { type: "NEXT_TURN" }
   | { type: "SHOW_SCOREBOARD" }
   | { type: "RESTART" };
@@ -27,6 +31,9 @@ const initialState: GameState = {
   lastOutcome: null,
   canChooseCategory: false,
   maxLevel: 1,
+  pendingRatings: [],
+  ratingVoterIndex: 0,
+  ratingPointsEarned: 0,
 };
 
 function reducer(state: GameState, action: Action): GameState {
@@ -54,6 +61,9 @@ function reducer(state: GameState, action: Action): GameState {
     case "PASSED":
       return applyPassed(state);
 
+    case "SUBMIT_RATING":
+      return submitRating(state, action.rating);
+
     case "NEXT_TURN":
       return nextTurn(state, state.players.length);
 
@@ -71,6 +81,7 @@ function reducer(state: GameState, action: Action): GameState {
 interface GameContextValue {
   state: GameState;
   categories: Category[];
+  allCategories: Category[];
   dispatch: React.Dispatch<Action>;
   getRandomCategory: () => Category;
   getQuestion: (category: Category, level: Level) => ReturnType<typeof pickQuestion>;
@@ -82,14 +93,27 @@ export function GameProvider({ children, categories }: { children: React.ReactNo
   const [state, dispatch] = useReducer(reducer, initialState);
   const usedIds = useRef(new Set<string>());
 
-  const filteredCategories = useMemo(
-    () => (state.spiceEnabled ? categories : categories.filter((c) => c.id !== "sinFiltro")),
+  // All categories gated by spiceEnabled (age gate)
+  const spiceGatedCategories = useMemo(
+    () => state.spiceEnabled ? categories : categories.filter((c) => !["sinFiltro", "confesiones", "fantasias"].includes(c.id)),
     [categories, state.spiceEnabled]
   );
 
+  // Categories available for random pick (current player's unlocked set)
+  const currentPlayerPoints = state.players[state.currentPlayerIndex]?.points ?? 0;
+  const availableIds = useMemo(
+    () => getAvailableCategoryIds(currentPlayerPoints),
+    [currentPlayerPoints]
+  );
+
+  const categories_available = useMemo(
+    () => spiceGatedCategories.filter((c) => availableIds.has(c.id)),
+    [spiceGatedCategories, availableIds]
+  );
+
   const getRandomCategory = useCallback(
-    () => pickRandomCategory(filteredCategories, state.selectedCategory?.id),
-    [filteredCategories, state.selectedCategory?.id]
+    () => pickRandomCategory(categories_available, state.selectedCategory?.id),
+    [categories_available, state.selectedCategory?.id]
   );
 
   const getQuestion = useCallback(
@@ -102,8 +126,15 @@ export function GameProvider({ children, categories }: { children: React.ReactNo
   );
 
   const value = useMemo(
-    () => ({ state, categories: filteredCategories, dispatch, getRandomCategory, getQuestion }),
-    [state, filteredCategories, dispatch, getRandomCategory, getQuestion]
+    () => ({
+      state,
+      categories: categories_available,
+      allCategories: spiceGatedCategories,
+      dispatch,
+      getRandomCategory,
+      getQuestion,
+    }),
+    [state, categories_available, spiceGatedCategories, dispatch, getRandomCategory, getQuestion]
   );
 
   return <GameContext.Provider value={value}>{children}</GameContext.Provider>;

@@ -50184,6 +50184,574 @@
           "level": 3
         }
       ]
+    },
+    {
+      "id": "confesiones",
+      "name": "Confesiones",
+      "shortName": "Confesiones",
+      "color": "#9B84CC",
+      "shadowColor": "#7360AA",
+      "questions": [
+        {
+          "id": "con_1_001",
+          "text": "¿Alguna vez mentiste sobre algo que parecía una tontería y nunca lo aclaraste?",
+          "level": 1
+        },
+        {
+          "id": "con_1_002",
+          "text": "¿Cuál es la mentira más inocente que contás seguido?",
+          "level": 1
+        },
+        {
+          "id": "con_1_003",
+          "text": "¿Alguna vez fingiste que no recibiste un mensaje?",
+          "level": 1
+        },
+        {
+          "id": "con_1_004",
+          "text": "¿Alguna vez te apropiaste del crédito por algo que no hiciste del todo solo?",
+          "level": 1
+        },
+        {
+          "id": "con_1_005",
+          "text": "¿Cuál es la cosa más vergonzosa que buscaste en internet?",
+          "level": 1
+        },
+        {
+          "id": "con_1_006",
+          "text": "¿Alguna vez espías el celular o las redes de alguien aunque no se lo dirías?",
+          "level": 1
+        },
+        {
+          "id": "con_1_007",
+          "text": "¿Hay algún hábito tuyo que ocultás porque te daría vergüenza que lo sepan?",
+          "level": 1
+        },
+        {
+          "id": "con_1_008",
+          "text": "¿Alguna vez diste una excusa falsa para no ir a algo?",
+          "level": 1
+        },
+        {
+          "id": "con_1_009",
+          "text": "¿Cuál es la mentira que contás más seguido para quedar bien?",
+          "level": 1
+        },
+        {
+          "id": "con_1_010",
+          "text": "¿Alguna vez rompiste algo ajeno y no lo dijiste?",
+          "level": 1
+        },
+        {
+          "id": "con_1_011",
+          "text": "¿Alguna vez exageraste algo de tu vida para impresionar a alguien?",
+          "level": 1
+        },
+        {
+          "id": "con_1_012",
+          "text": "¿Tenés algún vicio secreto que casi nadie conoce?",
+          "level": 1
+        },
+        {
+          "id": "con_1_013",
+          "text": "¿Alguna vez copiaste en un examen o trabajo y nunca lo confesaste?",
+          "level": 1
+        },
+        {
+          "id": "con_1_014",
+          "text": "¿Hay algo que fingís que te gusta para no decepcionar a alguien?",
+          "level": 1
+        },
+        {
+          "id": "con_1_015",
+          "text": "¿Alguna vez hablaste mal de alguien presente en esa misma reunión?",
+          "level": 1
+        },
+        {
+          "id": "con_1_016",
+          "text": "¿Cuál es la cosa de la que te arrepentís pero nunca pediste perdón?",
+          "level": 1
+        },
+        {
+          "id": "con_1_017",
+          "text": "¿Alguna vez tomaste algo prestado y lo diste por perdido sin decirlo?",
+          "level": 1
+        },
+        {
+          "id": "con_1_018",
+          "text": "¿Hay algo que sabés de alguien y nunca dijiste que lo sabés?",
+          "level": 1
+        },
+        {
+          "id": "con_1_019",
+          "text": "¿Alguna vez mandaste un regalo genérico sin esfuerzo y dijiste que lo elegiste con dedicación?",
+          "level": 1
+        },
+        {
+          "id": "con_1_020",
+          "text": "¿Alguna vez hiciste algo incómodo y lo dejaste pasar como si no hubiera pasado nada?",
+          "level": 1
+        },
+        {
+          "id": "con_1_021",
+          "text": "¿Tenés algún prejuicio que te avergüenza admitir?",
+          "level": 1
+        },
+        {
+          "id": "con_1_022",
+          "text": "¿Alguna vez simulaste que no entendías algo para evitar tener que hacerlo?",
+          "level": 1
+        },
+        {
+          "id": "con_1_023",
+          "text": "¿Cuál es la mentira blanca que más repetís?",
+          "level": 1
+        },
+        {
+          "id": "con_1_024",
+          "text": "¿Hay algo que hiciste que nunca le contarías a tu familia?",
+          "level": 1
+        },
+        {
+          "id": "con_1_025",
+          "text": "¿Alguna vez te hiciste el dormido para no tener que levantarte o atender algo?",
+          "level": 1
+        },
+        {
+          "id": "con_1_026",
+          "text": "¿Hay algo que dijiste que no te importa pero en realidad sí te importa?",
+          "level": 1
+        },
+        {
+          "id": "con_1_027",
+          "text": "¿Alguna vez te quedaste con vuelto de más sin decirlo?",
+          "level": 1
+        },
+        {
+          "id": "con_1_028",
+          "text": "¿Cuál fue la última vez que dijiste 'ya estoy saliendo' y todavía no habías arrancado?",
+          "level": 1
+        },
+        {
+          "id": "con_1_029",
+          "text": "¿Hay algo que hacés mal a propósito para que no te lo pidan de nuevo?",
+          "level": 1
+        },
+        {
+          "id": "con_1_030",
+          "text": "¿Alguna vez desististe de algo importante y le pusiste una excusa razonable para no explicar la real?",
+          "level": 1
+        },
+        {
+          "id": "con_2_001",
+          "text": "¿Cuál es el secreto que más te pesa y que casi nadie sabe?",
+          "level": 2
+        },
+        {
+          "id": "con_2_002",
+          "text": "¿Alguna vez traicionaste la confianza de alguien y nunca lo supieron?",
+          "level": 2
+        },
+        {
+          "id": "con_2_003",
+          "text": "¿Hay algo que hiciste de lo que te arrepentís profundamente y que nunca contaste?",
+          "level": 2
+        },
+        {
+          "id": "con_2_004",
+          "text": "¿Tuviste alguna vez sentimientos que te avergüenzan hacia alguien cercano?",
+          "level": 2
+        },
+        {
+          "id": "con_2_005",
+          "text": "¿Hay algo que le ocultás a alguien que querés porque sabés que lo lastimaría?",
+          "level": 2
+        },
+        {
+          "id": "con_2_006",
+          "text": "¿Alguna vez hiciste algo en secreto que va contra tus propios valores?",
+          "level": 2
+        },
+        {
+          "id": "con_2_007",
+          "text": "¿Cuál es la cosa que más te avergüenza de cómo actuaste en alguna situación pasada?",
+          "level": 2
+        },
+        {
+          "id": "con_2_008",
+          "text": "¿Hay algo que fingís no saber sobre alguien para evitar un conflicto?",
+          "level": 2
+        },
+        {
+          "id": "con_2_009",
+          "text": "¿Alguna vez ocultaste algo importante en una relación para que no terminara?",
+          "level": 2
+        },
+        {
+          "id": "con_2_010",
+          "text": "¿Cuál es el secreto de alguien que sabés y que te pesa guardar?",
+          "level": 2
+        },
+        {
+          "id": "con_2_011",
+          "text": "¿Hay algo tuyo que le contaste a alguien pero después quisiste no haberlo hecho?",
+          "level": 2
+        },
+        {
+          "id": "con_2_012",
+          "text": "¿Alguna vez hiciste algo que considerás éticamente cuestionable y lo justificaste para no sentirte mal?",
+          "level": 2
+        },
+        {
+          "id": "con_2_013",
+          "text": "¿Cuál es la parte de vos mismo que más te cuesta confesar, ni siquiera a vos?",
+          "level": 2
+        },
+        {
+          "id": "con_2_014",
+          "text": "¿Hay algo que le debés a alguien — una disculpa, una verdad, un reconocimiento — que todavía no diste?",
+          "level": 2
+        },
+        {
+          "id": "con_2_015",
+          "text": "¿Alguna vez quisiste que alguien te descubra en algo para no tener que decirlo vos?",
+          "level": 2
+        },
+        {
+          "id": "con_3_001",
+          "text": "¿Cuál es la confesión que te llevarías a la tumba si pudieras elegir?",
+          "level": 3
+        },
+        {
+          "id": "con_3_002",
+          "text": "¿Hay algo que hiciste que sabés que cambiaría la imagen que alguien tiene de vos si lo supiera?",
+          "level": 3
+        },
+        {
+          "id": "con_3_003",
+          "text": "¿Cuál es el secreto que más daño haría si saliera a la luz?",
+          "level": 3
+        },
+        {
+          "id": "con_3_004",
+          "text": "¿Hay algo que guardás en secreto porque sabés que la verdad duele menos que lo que imaginan?",
+          "level": 3
+        },
+        {
+          "id": "con_3_005",
+          "text": "¿Cuál es la cosa de la que más te avergonzás y que sin embargo parte de vos no se arrepiente del todo?",
+          "level": 3
+        },
+        {
+          "id": "con_3_006",
+          "text": "¿Hay alguna relación en tu vida que existe sobre una mentira o una verdad a medias?",
+          "level": 3
+        },
+        {
+          "id": "con_3_007",
+          "text": "¿Qué es lo que más te cuesta confesar sobre quién sos realmente?",
+          "level": 3
+        },
+        {
+          "id": "con_3_008",
+          "text": "¿Cuál sería la consecuencia más grave de que salga a la luz el secreto que más guardás?",
+          "level": 3
+        },
+        {
+          "id": "con_3_009",
+          "text": "¿Hay algo que sabés de vos mismo que todavía no te animaste a decirte en voz alta?",
+          "level": 3
+        },
+        {
+          "id": "con_3_010",
+          "text": "¿Si pudieras hacer una confesión completa sin consecuencias, qué dirías?",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "fantasias",
+      "name": "Fantasías",
+      "shortName": "Fantasías",
+      "color": "#CC7EA0",
+      "shadowColor": "#A45E80",
+      "questions": [
+        {
+          "id": "fan_1_001",
+          "text": "¿Cuál es la fantasía más absurda que tenés y que nunca realizarías en la vida real?",
+          "level": 1
+        },
+        {
+          "id": "fan_1_002",
+          "text": "¿Si pudieras ser alguien famoso por un día, quién elegirías y qué harías?",
+          "level": 1
+        },
+        {
+          "id": "fan_1_003",
+          "text": "¿Cuál es el superpoder que siempre quisiste tener?",
+          "level": 1
+        },
+        {
+          "id": "fan_1_004",
+          "text": "¿Qué harías si de repente tuvieras 10 millones de dólares?",
+          "level": 1
+        },
+        {
+          "id": "fan_1_005",
+          "text": "¿Si pudieras vivir en cualquier época de la historia, cuál elegirías?",
+          "level": 1
+        },
+        {
+          "id": "fan_1_006",
+          "text": "¿Cuál sería tu trabajo soñado si el dinero no importara?",
+          "level": 1
+        },
+        {
+          "id": "fan_1_007",
+          "text": "¿Qué harías si supieras que mañana el mundo termina?",
+          "level": 1
+        },
+        {
+          "id": "fan_1_008",
+          "text": "¿Si pudieras dominar cualquier habilidad de la noche a la mañana, cuál elegirías?",
+          "level": 1
+        },
+        {
+          "id": "fan_1_009",
+          "text": "¿Cuál es el lugar del mundo donde vivirías si pudieras ir mañana sin obstáculos?",
+          "level": 1
+        },
+        {
+          "id": "fan_1_010",
+          "text": "¿Si pudieras cenar con cualquier persona viva o muerta, quién sería y qué le preguntarías?",
+          "level": 1
+        },
+        {
+          "id": "fan_1_011",
+          "text": "¿Cuál es el alter ego que llevarías dentro y nunca mostrarías?",
+          "level": 1
+        },
+        {
+          "id": "fan_1_012",
+          "text": "¿Si pudieras cambiar una sola regla social que existe, cuál sería?",
+          "level": 1
+        },
+        {
+          "id": "fan_1_013",
+          "text": "¿Qué película o serie te gustaría que fuera tu vida?",
+          "level": 1
+        },
+        {
+          "id": "fan_1_014",
+          "text": "¿Si pudieras tener una conversación de una hora con tu yo de 80 años, qué le preguntarías?",
+          "level": 1
+        },
+        {
+          "id": "fan_1_015",
+          "text": "¿Cuál es la aventura más loca que fantaseás con hacer pero nunca harías?",
+          "level": 1
+        },
+        {
+          "id": "fan_1_016",
+          "text": "¿Si pudieras volver a tener 16 años sabiendo lo que sabés ahora, qué harías diferente?",
+          "level": 1
+        },
+        {
+          "id": "fan_1_017",
+          "text": "¿Qué animal elegirías ser si tuvieras que vivir como uno por un mes?",
+          "level": 1
+        },
+        {
+          "id": "fan_1_018",
+          "text": "¿Si pudieras leer la mente de alguien por un día, de quién elegirías y por qué?",
+          "level": 1
+        },
+        {
+          "id": "fan_1_019",
+          "text": "¿Cuál sería tu nombre artístico si fueras músico, actor o artista?",
+          "level": 1
+        },
+        {
+          "id": "fan_1_020",
+          "text": "¿Qué mundo ficticio (libro, película, juego) te gustaría habitar?",
+          "level": 1
+        },
+        {
+          "id": "fan_1_021",
+          "text": "¿Si pudieras tener un mayordomo que se encargara de una sola tarea de tu vida, cuál sería?",
+          "level": 1
+        },
+        {
+          "id": "fan_1_022",
+          "text": "¿Cuál es tu fantasía de venganza más inofensiva y ridícula?",
+          "level": 1
+        },
+        {
+          "id": "fan_1_023",
+          "text": "¿Si pudieras borrar el recuerdo de un momento vergonzoso, cuál sería?",
+          "level": 1
+        },
+        {
+          "id": "fan_1_024",
+          "text": "¿Qué harías si pudieras ser invisible por un día?",
+          "level": 1
+        },
+        {
+          "id": "fan_1_025",
+          "text": "¿Si pudieras ser el mejor del mundo en algo, qué elegirías?",
+          "level": 1
+        },
+        {
+          "id": "fan_1_026",
+          "text": "¿Cuál es el personaje de ficción con el que más te identificás y por qué?",
+          "level": 1
+        },
+        {
+          "id": "fan_1_027",
+          "text": "¿Qué harías si pudieras vivir 200 años con perfecta salud?",
+          "level": 1
+        },
+        {
+          "id": "fan_1_028",
+          "text": "¿Si pudieras cambiar una decisión pasada sin consecuencias para los demás, cuál sería?",
+          "level": 1
+        },
+        {
+          "id": "fan_1_029",
+          "text": "¿Cuál es el plan que fantaseás con ejecutar pero que nunca harías por responsable?",
+          "level": 1
+        },
+        {
+          "id": "fan_1_030",
+          "text": "¿Si te dieran un año sabático pagado para hacer lo que quieras, qué harías?",
+          "level": 1
+        },
+        {
+          "id": "fan_2_001",
+          "text": "¿Cuál es la vida alternativa que más seguido imaginás para vos?",
+          "level": 2
+        },
+        {
+          "id": "fan_2_002",
+          "text": "¿Si pudieras reinventarte completamente — nombre, profesión, ciudad, personalidad — cómo sería tu nueva versión?",
+          "level": 2
+        },
+        {
+          "id": "fan_2_003",
+          "text": "¿Qué fantasía tuya, si la realizaras, sorprendería más a las personas que te conocen?",
+          "level": 2
+        },
+        {
+          "id": "fan_2_004",
+          "text": "¿Si pudieras vivir completamente fuera de las normas sociales por un año sin consecuencias, cómo vivirías?",
+          "level": 2
+        },
+        {
+          "id": "fan_2_005",
+          "text": "¿Cuál es la versión más audaz de vos mismo que imaginás y que todavía no te animaste a ser?",
+          "level": 2
+        },
+        {
+          "id": "fan_2_006",
+          "text": "¿Qué fantasía recurrente tenés sobre tu futuro que te da un poco de vergüenza admitir?",
+          "level": 2
+        },
+        {
+          "id": "fan_2_007",
+          "text": "¿Si pudieras elegir cómo te recuerdan después de morir, qué imagen dejarías?",
+          "level": 2
+        },
+        {
+          "id": "fan_2_008",
+          "text": "¿Hay alguna fantasía tuya que en algún momento de tu vida estuvo cerca de hacerse realidad?",
+          "level": 2
+        },
+        {
+          "id": "fan_2_009",
+          "text": "¿Cuál es la versión de tu vida que llevás en paralelo en tu imaginación?",
+          "level": 2
+        },
+        {
+          "id": "fan_2_010",
+          "text": "¿Si pudieras decirle algo a alguien sin consecuencias, qué y a quién?",
+          "level": 2
+        },
+        {
+          "id": "fan_2_011",
+          "text": "¿Cuál es la decisión más radical que fantaseás con tomar algún día?",
+          "level": 2
+        },
+        {
+          "id": "fan_2_012",
+          "text": "¿Si pudieras escaparte de tu vida actual por un mes sin que nadie lo sepa, a dónde irías y qué harías?",
+          "level": 2
+        },
+        {
+          "id": "fan_2_013",
+          "text": "¿Cuál es la fantasía que más te cuesta admitir porque te parece que no va con quien sos?",
+          "level": 2
+        },
+        {
+          "id": "fan_2_014",
+          "text": "¿Qué versión de vos mismo que existe en tu cabeza todavía no le mostraste al mundo?",
+          "level": 2
+        },
+        {
+          "id": "fan_2_015",
+          "text": "¿Si pudieras vivir sin ningún miedo, qué harías primero?",
+          "level": 2
+        },
+        {
+          "id": "fan_3_001",
+          "text": "¿Cuál es la fantasía que más te cuesta admitir incluso ante vos mismo?",
+          "level": 3
+        },
+        {
+          "id": "fan_3_002",
+          "text": "¿Hay alguna vida completamente diferente a la tuya que a veces deseás con más fuerza de la que admitís?",
+          "level": 3
+        },
+        {
+          "id": "fan_3_003",
+          "text": "¿Cuál sería el escenario de tu fantasía más prohibida — la que nunca contarías en voz alta?",
+          "level": 3
+        },
+        {
+          "id": "fan_3_004",
+          "text": "¿Si las consecuencias no existieran, cuál es la cosa más impulsiva que harías ahora mismo?",
+          "level": 3
+        },
+        {
+          "id": "fan_3_005",
+          "text": "¿Cuál es el deseo más profundo que tenés y que siente que no merece ser dicho en voz alta?",
+          "level": 3
+        },
+        {
+          "id": "fan_3_006",
+          "text": "¿Hay algo que fantaseás y que sabés que va en contra de quien querés ser?",
+          "level": 3
+        },
+        {
+          "id": "fan_3_007",
+          "text": "¿Qué parte de vos que existe en tu imaginación nunca mostrarías al mundo real?",
+          "level": 3
+        },
+        {
+          "id": "fan_3_008",
+          "text": "¿Si pudieras ser completamente honesto sobre lo que querés de la vida, qué dirías que todavía no dijiste?",
+          "level": 3
+        },
+        {
+          "id": "fan_3_009",
+          "text": "¿Cuál es la fantasía que más define quién podrías haber sido si las cosas hubieran sido distintas?",
+          "level": 3
+        },
+        {
+          "id": "fan_3_010",
+          "text": "¿Si pudieras hacer una sola cosa sin que nadie lo supiera jamás, qué elegirías?",
+          "level": 3
+        }
+      ]
     }
   ]
 }

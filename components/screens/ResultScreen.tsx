@@ -2,16 +2,21 @@
 
 import { motion } from "framer-motion";
 import { useGame } from "@/lib/GameContext";
-import { POINTS_BY_LEVEL } from "@/lib/gameLogic";
+import { CATEGORY_UNLOCK_POINTS } from "@/lib/gameLogic";
 
 export default function ResultScreen() {
   const { state, dispatch } = useGame();
   const playerIndex = state.currentPlayerIndex;
   const player = state.players[playerIndex];
-  const level = state.selectedLevel!;
   const passed = state.lastOutcome === "passed";
-  const points = passed ? 0 : POINTS_BY_LEVEL[level];
+  const points = state.ratingPointsEarned;
   const nextPlayer = state.players[(playerIndex + 1) % state.players.length];
+
+  // Check if any category just unlocked for the current player
+  const prevPoints = player.points - points;
+  const newlyUnlocked = Object.entries(CATEGORY_UNLOCK_POINTS).filter(
+    ([, threshold]) => prevPoints < threshold && player.points >= threshold
+  );
 
   return (
     <motion.div
@@ -55,9 +60,9 @@ export default function ResultScreen() {
           </>
         ) : (
           <>
-            <p className="text-xl font-semibold text-[#1A2535]">Aprobado</p>
+            <p className="text-sm text-[#1A2535]/40 font-light">Promedio del grupo</p>
             <motion.p
-              className="text-4xl font-bold"
+              className="text-5xl font-bold"
               style={{ color: "#6BB5B5" }}
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
@@ -70,8 +75,27 @@ export default function ResultScreen() {
         )}
       </div>
 
+      {/* Newly unlocked category */}
+      {newlyUnlocked.length > 0 && (
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9, y: 8 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          transition={{ delay: 0.5, type: "spring", stiffness: 200, damping: 18 }}
+          className="w-full max-w-sm px-5 py-4 rounded-2xl border text-center space-y-1"
+          style={{ backgroundColor: "#9B84CC15", borderColor: "#9B84CC40" }}
+        >
+          <p className="text-base">🔓</p>
+          <p className="text-sm font-semibold" style={{ color: "#9B84CC" }}>
+            ¡Categoría desbloqueada!
+          </p>
+          {newlyUnlocked.map(([catId]) => (
+            <p key={catId} className="text-xs text-[#1A2535]/50 capitalize">{catId}</p>
+          ))}
+        </motion.div>
+      )}
+
       {/* Streak badge */}
-      {!passed && player.streak > 0 && (
+      {!passed && player.streak > 0 && newlyUnlocked.length === 0 && (
         <motion.div
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
@@ -87,7 +111,7 @@ export default function ResultScreen() {
               ? "Acceso total desbloqueado"
               : player.streak >= 3
               ? "Podés elegir categoría y nivel Medio"
-              : `${3 - player.streak} más para elegir categoría y nivel Medio`}
+              : `${3 - player.streak} más para elegir categoría`}
           </p>
         </motion.div>
       )}
